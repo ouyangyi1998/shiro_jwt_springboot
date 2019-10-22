@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jerry.shiro_jwt_springboot.mapper.UserMapper">
+    <select id="getPassword" parameterType="java.lang.String" resultType="java.lang.String">
+ select jwt.user.password from jwt.user where username=#{username}
+    </select>
+    <select id="getRole" parameterType="java.lang.String" resultType="java.lang.String">
+        select jwt.user.role from jwt.user where username=#{username}
+    </select>
+    <update id="updatePassword" parameterType="java.lang.String">
+        update jwt.user set jwt.user.password=#{password} where username=#{username}
+    </update>
+    <update id="getUser" parameterType="java.lang.String">
+        update jwt.user set ban=1 where username=#{username}
+    </update>
+    <select id="checkUserBanStatus" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select jwt.user.ban from jwt.user where username=#{username}
+    </select>
+    <select id="getRolePermission" parameterType="java.lang.String" resultType="java.lang.String">
+        select jwt.role.permission from jwt.role,jwt.user
+        where username=#{username} and role.role=user.role
+    </select>
+    <select id="getPermission" parameterType="java.lang.String" resultType="java.lang.String">
+        select jwt.user.permission from jwt.user where username=#{username}
+    </select>
+</mapper>
